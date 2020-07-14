@@ -1,14 +1,14 @@
 import csv
 import time
 
-def stat_writer(move, time_stats):
+def stat_writer(move, time_stats): #inserting data (number of moves and time elapsed) into the csv file for further use
     to_insert = [move, time_stats]
     with open('stats.csv', 'a', newline='') as file:
         f_writer = csv.writer(file)
         f_writer.writerow(to_insert)
 
 
-def stat_reader():
+def stat_reader(): #calculating average number of moves and time
     with open('stats.csv', 'r') as file:
         f_reader = csv.reader(file)
         to_read = list(f_reader)
@@ -29,8 +29,8 @@ def stat_reader():
 
     return data
 
-def stat_printer():
-    separator = 51 * '_'
+def stat_printer(): #printing the statistics
+    separator = 28 * '_'
 
     with open('stats.csv', 'r') as file:
         f_reader = csv.reader(file)
@@ -40,7 +40,7 @@ def stat_printer():
     print('|Num. of moves|Time elapsed|')
     print(separator)
 
-    for j in to_read:
+    for j in to_read: #printing the chart
         time.sleep(0.2)
         print(f'|{j[0]: ^13}|{j[1]: ^12}|')
         print(separator)
