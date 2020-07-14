@@ -1,5 +1,6 @@
 import random
 import time
+import statistics
 
 def beginning():
     global separator
@@ -32,6 +33,7 @@ def generator():
             number.append(str(k))
 
     number = ''.join(number)
+    print(number)
 
     time.sleep(1)
     for i in range(3):
@@ -43,13 +45,12 @@ def generator():
 
 def guesser():
     global move
-    global t1
-    global t2
+    global time_stats
     move = 1
+    t1 = time.time()
     while move:
         bulls = 0
         cows = 0
-        t1 = int(time.time())
 
         guess = input(f'Type a number. Guess number {move}: ')
 
@@ -60,7 +61,10 @@ def guesser():
                 bulls += 1
 
         if number == guess:
-            t2 = int(time.time())
+            t2 = time.time()
+            time_stats = int(t2 - t1)
+
+            statistics.stat_writer(move, time_stats)
             break
 
         print(f'|Bulls: {bulls} | Cows: {cows}|')
@@ -68,8 +72,11 @@ def guesser():
 
 def winner():
     print(separator)
+    time.sleep(1)
     print('You won!')
     print(separator)
+    time.sleep(1.5)
     print(f'You guessed the right number in {move} guesses!')
-    print(f'It took you {t2 - t1} seconds.')
+    print(f'It took you {time_stats} seconds.')
     print(separator)
+    time.sleep(3)
